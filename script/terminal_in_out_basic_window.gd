@@ -32,15 +32,20 @@ static func open_exe_control_panel() -> void:
 static func open_exe_task_manager() -> void:
 	OS.execute("taskmgr.exe", [], [])
 
-static func open_exe_terminal_at(folder_path: String) -> void:
+static func open_exe_file_explorer_at(adb_path) -> void:
+	OS.shell_open(adb_path)
+
+#adb -s ZY32KVH2DS  shell monkey -p com.termux/.app.TermuxActivity 1
+
+
+static func open_exe_terminal_blocking_at(folder_path: String) -> void:
 	if OS.get_name() == "Windows":
 		OS.execute("cmd.exe", ["/C", "cd /d \"%s\" && start cmd.exe" % folder_path], [])
-	# elif OS.get_name() == "Linux":
-	# 	OS.execute("x-terminal-emulator", ["--working-directory=%s" % folder_path], [])
-		
-	# elif OS.get_name() == "macOS":
-	# 	OS.execute("open", ["-a", "Terminal", folder_path], [])
 
+static func open_exe_terminal_on_side_at(folder_path: String) -> void:
+	## did not succed yet to run on side thread
+	pass 
+	
 
 static func open_exe_folder_in_explorer(folder_path: String) -> void:
 	OS.execute("explorer.exe", [folder_path], [])
